@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TableComponent } from './shared/table/table.component';
 import { ContainerComponent } from './components/container/container.component';
 import { EditDialogComponent } from './shared/dialogs/edit-dialog/edit-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

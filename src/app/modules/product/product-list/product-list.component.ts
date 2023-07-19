@@ -1,7 +1,6 @@
 import { Component, ContentChild } from '@angular/core';
 import { FORM_TOKEN } from 'src/app/tokens/form-token';
 import { ProductForm } from '../form-product';
-import { TableComponent } from 'src/app/shared/table/table.component';
 import { Product } from 'src/app/interfaces/product.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from 'src/app/shared/dialogs/edit-dialog/edit-dialog.component';
