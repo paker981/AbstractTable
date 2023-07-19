@@ -1,0 +1,50 @@
+<p>edit-dialog works!</p>
+<ol>
+    <div mat-dialog-content>
+        <h2 mat-dialog-title>Add new</h2>
+        <button mat-icon-button class="close-button" (click)="closeDialog()">
+        <mat-icon>close</mat-icon> </button> 
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <ng-container *ngFor="let control of form.controls | keyvalue">
+            <!-- NgSwitch wybiera odpowiedni szablon w zależności od typu kontrolki -->
+            <ng-container [ngSwitch]="getControlType(control.value)">
+              <!-- Text Input -->
+              <ng-container *ngSwitchCase="formTypes.string">
+                <mat-form-field>
+                  <input matInput [formControlName]="control.key"  [placeholder]="control.key" />
+                </mat-form-field>
+              </ng-container>
+        
+              <!-- Number Input -->
+              <ng-container *ngSwitchCase="formTypes.number">
+                <mat-form-field>
+                  <input matInput [formControlName]="control.key" [type]="getControlType(control.value)" [placeholder]="control.key" [readonly]="control.key === 'id'" />
+                </mat-form-field>
+              </ng-container>
+        
+              <!-- Radio Group -->
+              <ng-container *ngSwitchCase="formTypes.boolean">
+                <mat-radio-group [formControlName]="control.key">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+              </ng-container>
+        
+              <!-- Datepicker -->
+              <ng-container *ngSwitchCase="formTypes.date">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="datePicker" [formControlName]="control.key" [placeholder]="'Choose a date'" />
+                  <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datePicker></mat-datepicker>
+                </mat-form-field>
+              </ng-container>
+        
+              <!-- Dodaj inne typy kontrolek w ngSwitch, jeśli są potrzebne -->
+            </ng-container>
+          </ng-container>
+        
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+        </form>
+    </div>
+  </ol>

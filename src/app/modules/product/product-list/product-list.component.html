@@ -1,0 +1,11 @@
+<p>product-list works!</p>
+
+<app-abstract-table [data]="products" (edit)="onEdit($event)" (remove)="onRemove($event)">
+    <ng-template #customButton let-item="item">
+      <button mat-button [class.success]="item.inStock"
+      [class.error]="!item.inStock" (click)="changeStateOfRow(item)">
+        {{ item.inStock ? 'Dostępny' : 'Niedostępny' }}
+      </button>
+    </ng-template>
+</app-abstract-table>
+
