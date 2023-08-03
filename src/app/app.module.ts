@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContainerComponent } from './components/container/container.component';
-import { EditDialogComponent } from './shared/dialogs/edit-dialog/edit-dialog.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,44 +16,38 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { NavigationComponent } from './components/nagivation/navigation/navigation.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { SharedModule } from './shared/shared/shared.module';
 import { AbstractTableComponent } from './components/abstract-table/abstract-table.component';
 import { ProductListComponent } from './modules/product/product-list/product-list.component';
+import { ProductModule } from './modules/product/product.module';
+import { TextFormatRowPipe } from './pipes/text-format-row.pipe';
+import { ControlTypePipe } from './pipes/control-type.pipe';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { MatListModule } from '@angular/material/list';
+import { ProductClassPipe } from './modules/product/pipes/product-class.pipe';
+import { SupplierModule } from './modules/supplier/supplier.module';
+import { MaterialModule } from './shared/material/material.module';
+import { RecordTableComponent } from './components/abstract-table/record-table/record-table/record-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContainerComponent,
-    NavigationComponent,
-    EditDialogComponent,
-
-    
-
+    MainNavComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatDialogModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatSidenavModule,
-
+    MaterialModule,
+    ProductModule,
+    SupplierModule
   ],
-  exports: [
-    
+  exports: [],
+  providers: [
+    // ... wszystkei providersy z importowanych modułów
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

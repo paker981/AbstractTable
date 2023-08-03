@@ -4,16 +4,14 @@ import { SupplierListComponent } from './modules/supplier/supplier-list/supplier
 import { ProductListComponent } from './modules/product/product-list/product-list.component';
 
 const routes: Routes = [
-  
   {
     path: 'products',
-    component: ProductListComponent
+    component: ProductListComponent,
   },
   {
     path: 'suppliers',
     component: SupplierListComponent
   }
-  
 ];
 
 @NgModule({

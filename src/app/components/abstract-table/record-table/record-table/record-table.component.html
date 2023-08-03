@@ -1,0 +1,6 @@
+<ng-container
+*ngTemplateOutlet="
+  getRecordTemplate(data.key) || defaultTemplate;
+  context: { $implicit: data.value }
+"
+></ng-container>

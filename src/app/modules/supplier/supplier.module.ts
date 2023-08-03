@@ -1,28 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupplierListComponent } from './supplier-list/supplier-list.component';
-import { FORM_TOKEN } from 'src/app/tokens/form-token';
 import { SupplierForm } from './form-supplier';
 import { AppModule } from 'src/app/app.module';
-import { EditDialogComponent } from 'src/app/shared/dialogs/edit-dialog/edit-dialog.component';
+import { EditDialogComponent } from 'src/app/components/edit-dialog/edit-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
-
+import { AbstractTableComponent } from 'src/app/components/abstract-table/abstract-table.component';
+import { SuppliersService } from 'src/app/modules/supplier/services/suppliers.service';
+import { MaterialModule } from 'src/app/shared/material/material.module'
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
+import { ScoreModifierPipe } from './pipes/score-modifier.pipe';
+import { TemplateWithId } from 'src/app/directives/template-with-id.directive';
 
 
 @NgModule({
   declarations: [
     SupplierListComponent,
+    PhoneNumberPipe,
+    ScoreModifierPipe
   ],
   imports: [
-    CommonModule,
-    SharedModule
+    SharedModule,
+    MaterialModule,
+    TemplateWithId,
   ],
   providers: [
-    {
-      provide: FORM_TOKEN,
-      useClass: SupplierForm
-    }
+    SuppliersService,
+  ],
+  exports: [
+    SupplierListComponent,
   ]
 })
 export class SupplierModule { }

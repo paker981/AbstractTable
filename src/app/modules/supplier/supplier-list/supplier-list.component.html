@@ -1,1 +1,24 @@
-<p>supplier-list works!</p>
+<app-abstract-table [data]="suppliers" (edit)="onEdit($event)" (remove)="onRemove($event)">
+    <ng-template #customButton let-item>
+        <button mat-flat-button [matMenuTriggerFor]="matMenu"><mat-icon>menu</mat-icon></button>
+        <mat-menu #matMenu="matMenu">
+            <button mat-menu-item (click)="call(item.phone)"><mat-icon>phone</mat-icon></button>
+            <button mat-menu-item (click)="copy(item.name)"><mat-icon>file_copy</mat-icon></button>
+          </mat-menu>
+    </ng-template>
+  
+    <ng-template #headers>
+      <th *ngFor="let header of columns | keyvalue">{{ header.value }}</th>
+    </ng-template>
+
+    <ng-template [templateId]="columns.PHONE" let-data>
+      <td>{{data | phoneNumber}}</td>
+    </ng-template>
+  
+    <ng-template [templateId]="columns.SCORE" let-data>
+      <td [ngClass]="data | scoreModifier">{{ data }}</td>
+    </ng-template>
+
+  
+  </app-abstract-table>
+  

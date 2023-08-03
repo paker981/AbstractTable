@@ -1,11 +1,32 @@
-<p>product-list works!</p>
-
 <app-abstract-table [data]="products" (edit)="onEdit($event)" (remove)="onRemove($event)">
-    <ng-template #customButton let-item="item">
-      <button mat-button [class.success]="item.inStock"
-      [class.error]="!item.inStock" (click)="changeStateOfRow(item)">
-        {{ item.inStock ? 'Dostępny' : 'Niedostępny' }}
-      </button>
-    </ng-template>
+  <ng-template #customButton let-item>
+    <button mat-button [class.success]="item.inStock"
+    [class.error]="!item.inStock" (click)="changeStateOfRow(item)">
+      {{ item.inStock ? 'Dostępny' : 'Niedostępny' }}
+    </button>
+  </ng-template>
+
+  <ng-template #headers>
+    <th *ngFor="let header of columns | keyvalue">{{ header.value }}</th>
+  </ng-template>
+
+  <ng-template [templateId]="columns.INSTOCK" let-data>
+    <td [ngClass]="data | productClass">{{data}}</td>
+  </ng-template>
+
+  <ng-template [templateId]="columns.LASTMODIFIED" let-data>
+    <td>{{ data | date: 'yyyy-MM-dd' }}</td>
+  </ng-template>
+
+
+  <!--
+  <ng-template #rows let-data>
+    <ng-container *ngFor="let headerKey of columns | keyvalue">
+      <td [ngClass]="data[headerKey.value] | productClass">
+        {{ data[headerKey.value] | textFormatRow }}
+    </ng-container>
+  </ng-template>
+  -->
+
 </app-abstract-table>
 

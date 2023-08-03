@@ -1,25 +1,37 @@
 import { validateHorizontalPosition } from "@angular/cdk/overlay";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Form } from "src/app/interfaces/form.interface";
-import { Supplier } from "src/app/interfaces/supplier.interface";
+import { FormFactory } from "src/app/interfaces/form.interface";
+import { Supplier, SupplierColumn, SupplierControls } from "src/app/interfaces/supplier.interface";
 
-export class SupplierForm implements Form {
+export class SupplierForm implements FormFactory {
     controls = [ 
-        {name: 'id',default: 0 as unknown as number, validators: []},
-        {name: 'name', default: '' as string ,validators: [Validators.required]},
-        {name: 'score', default: '' as unknown as number  ,validators: [Validators.required,Validators.min(0),Validators.max(100)]},
-        {name: 'phoneNumber', default: '' as unknown as number  ,validators: [Validators.required,Validators.minLength(9)]},
+        {name: SupplierColumn.ID,default: 0 as unknown as number, validators: []},
+        {name: SupplierColumn.NAME, default: '' as string ,validators: [Validators.required]},
+        {name: SupplierColumn.SCORE, default: '' as unknown as number  ,validators: [Validators.required,Validators.min(0),Validators.max(100)]},
+        {name: SupplierColumn.PHONE, default: '' as unknown as number  ,validators: [Validators.required,Validators.minLength(9)]},
     ]
 
-    createForm(form: FormGroup<any>): void {
-        Object.keys(form.controls).forEach(controlName => {
-            form.removeControl(controlName);
-        });
+        createForm(data: Supplier): FormGroup<SupplierControls> {
 
-        this.controls.forEach((elem)=>{
-            form.addControl(elem.name, new FormControl(elem.default,elem.validators))
-        });
-
-        form.updateValueAndValidity();
-    }
+            const form = new FormGroup<SupplierControls>({
+                id: new FormControl('' as unknown as number, Validators.required) as FormControl<number>,
+                name: new FormControl('', Validators.required) as FormControl<string>,
+                score: new FormControl('' as unknown as number, [Validators.required,Validators.min(0),Validators.max(100)]) as FormControl<number>,
+                phone: new FormControl('' as unknown as number, [Validators.required,Validators.minLength(9)]) as FormControl<number>,
+            })
+    
+            // TODO: stworzył i zwrócił nowy form
+            this.setControlValue(form, data);
+    
+            form.updateValueAndValidity();
+    
+            return form;
+        }
+    
+        setControlValue(form: FormGroup<SupplierControls>, data: Supplier){
+            form.controls.id.setValue(data.id);
+            form.controls.name.setValue(data.name);
+            form.controls.score.setValue(data.score);
+            form.controls.phone.setValue(data.phone);
+        }
 }

@@ -1,42 +1,56 @@
-<p>edit-dialog works!</p>
 <ol>
     <div mat-dialog-content>
-        <h2 mat-dialog-title>Add new</h2>
-        <button mat-icon-button class="close-button" (click)="closeDialog()">
-        <mat-icon>close</mat-icon> </button> 
+      <div class="dialog-header">
+        <h2 mat-dialog-title>---EDIT---</h2>
+        <div>
+          <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+        
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <ng-container *ngFor="let control of form.controls | keyvalue">
+        <ng-container *ngFor="let control of this.form.controls | keyvalue">
             <!-- NgSwitch wybiera odpowiedni szablon w zależności od typu kontrolki -->
-            <ng-container [ngSwitch]="getControlType(control.value)">
+            <ng-container [ngSwitch]="control.value | controlType">
               <!-- Text Input -->
               <ng-container *ngSwitchCase="formTypes.string">
+                <div>
                 <mat-form-field>
-                  <input matInput [formControlName]="control.key"  [placeholder]="control.key" />
+                  <mat-label>{{control.key}}</mat-label>
+                  <input matInput [formControlName]="control.key" [placeholder]="control.key" />
                 </mat-form-field>
+              </div>
               </ng-container>
         
               <!-- Number Input -->
               <ng-container *ngSwitchCase="formTypes.number">
+              <div>
                 <mat-form-field>
-                  <input matInput [formControlName]="control.key" [type]="getControlType(control.value)" [placeholder]="control.key" [readonly]="control.key === 'id'" />
+                  <mat-label>{{control.key}}</mat-label>
+                  <input matInput [formControlName]="control.key" type="number" [placeholder]="control.key" [readonly]="control.key === 'id'" />
                 </mat-form-field>
+              </div>
               </ng-container>
         
               <!-- Radio Group -->
               <ng-container *ngSwitchCase="formTypes.boolean">
+              <div>
                 <mat-radio-group [formControlName]="control.key">
+                  <mat-label>{{control.key}}</mat-label>
                   <mat-radio-button [value]="true">Yes</mat-radio-button>
                   <mat-radio-button [value]="false">No</mat-radio-button>
                 </mat-radio-group>
+              </div>
               </ng-container>
-        
-              <!-- Datepicker -->
-              <ng-container *ngSwitchCase="formTypes.date">
+           
+              <ng-container *ngSwitchCase="formTypes.object">
+              <div>
                 <mat-form-field>
-                  <input matInput [matDatepicker]="datePicker" [formControlName]="control.key" [placeholder]="'Choose a date'" />
-                  <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                  <mat-label>{{control.key}}</mat-label>
+                  <input matInput [matDatepicker]="datePicker" [formControlName]="control.key" [placeholder]="'Choose a date'" [readonly]="true"/>
+                  <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="true"></mat-datepicker-toggle>
                   <mat-datepicker #datePicker></mat-datepicker>
                 </mat-form-field>
+              </div>
               </ng-container>
         
               <!-- Dodaj inne typy kontrolek w ngSwitch, jeśli są potrzebne -->

@@ -1,40 +1,40 @@
-<p>abstract-table works!</p>
-<p>table works!</p>
 <table>
     <thead>
       <tr>
         <ng-container
           *ngTemplateOutlet="
-            headers || defaultHeaderTemplate;
+            headers || defaultHeadersTemplate;
             context: { $implicit: data }
           "
         ></ng-container>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of data">
-        <ng-container
-          *ngTemplateOutlet="
-            rows || defaultRowTemplate;
-            context: { $implicit: row }
-          "
-        ></ng-container>
-        <button (click)="onEdit(row)">Edit</button>
-        <button (click)="onRemove(row)">Remove</button>
-        <ng-container *ngTemplateOutlet="customButton; context: { $implicit: row }"></ng-container>
+      <ng-container *ngFor="let row of data | keyvalue">
+      <tr>
+        <ng-container *ngFor="let record of row.value! | keyvalue">
+          <td>
+            <app-record-table 
+              [data]="record" 
+              [defaultTemplate]="defaultRecordTemplate" 
+              [templatesWithId]="templatesWithId">
+            </app-record-table>
+          </td>
+        </ng-container>
+        <button mat-button (click)="onEdit(row.value)">Edit</button>
+        <button mat-button (click)="onRemove(row.value)">Remove</button>
+        <ng-container *ngTemplateOutlet="customButton; context: { $implicit: row.value }"></ng-container>
       </tr>
-      <td>
-        
-      </td>
-
+      </ng-container>
     </tbody>
-  </table>
+</table>
 
   <!-- If no template is provided use keys as headers and display all values -->
-  <ng-template #defaultHeaderTemplate let-data>
+  <ng-template #defaultHeadersTemplate let-data>
     <th *ngFor="let header of data[0] | keyvalue">{{ header.key }}</th>
   </ng-template>
 
-  <ng-template #defaultRowTemplate let-row>
-    <td *ngFor="let row of row | keyvalue">{{ row.value }}</td>
+  <ng-template #defaultRecordTemplate let-data>
+    <td >{{ data }}
+    </td>
   </ng-template>

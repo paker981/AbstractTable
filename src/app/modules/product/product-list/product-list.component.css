@@ -6,3 +6,15 @@
     background-color: red;
     color: white;
   }
+
+  .default-text {
+    /* Default styles for non-boolean values */
+  }
+  
+  .red-text {
+    color: red;
+  }
+  
+  .green-text {
+    color: green;
+  }
